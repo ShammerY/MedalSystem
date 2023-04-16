@@ -1,6 +1,7 @@
 import model.*;
 
 import java.io.IOException;
+import java.util.InputMismatchException;
 import java.util.Scanner;
 public class Main {
     private Scanner reader;
@@ -22,9 +23,13 @@ public class Main {
         print(mainMenu());
         switch(reader.next()){
             case "1":
-                executeProgram();
+                print(registerCountry());
                 controller.saveData();
+                executeProgram();
             case "2":
+                executeProgram();
+            case "5":
+                print(controller.printList());
                 executeProgram();
             case "0":
                 System.exit(0);
@@ -33,12 +38,19 @@ public class Main {
                 executeProgram();
         }
     }
+    private String registerCountry(){
+        print("\n Enter : country::medal::amount\n Format Example : Australia::gold::3\n");
+        reader.nextLine();
+        String[] data = reader.nextLine().split("::");
+        return controller.addCountry(data);
+    }
     private String mainMenu(){
         return  "\n OPTIONS : \n"+
-                "(1) Register Country \n"+
+                "(1) Register Country / Add Medals\n"+
                 "(2) Show Medals  \n"+
                 "(3) Show Total Medals\n"+
                 "(4) Show Countries\n"+
+                "(5) print list\n"+
                 "(0) Exit Program";
     }
 }

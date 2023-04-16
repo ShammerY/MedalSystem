@@ -23,7 +23,9 @@ public class Country {
     public int getBronze() {
         return bronze;
     }
-    public void addGold(int add){this.gold+=add;}
+    public void addGold(int add){
+        this.gold+=add;
+    }
     public void addSilver(int add){this.silver+=add;}
     public void addBronze(int add){this.bronze+=add;}
 }

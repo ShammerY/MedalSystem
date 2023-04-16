@@ -4,7 +4,6 @@ import com.google.gson.Gson;
 
 import java.io.*;
 import java.util.ArrayList;
-import java.util.Arrays;
 
 public class Controller {
     ArrayList<Country> countries;
@@ -35,5 +34,56 @@ public class Controller {
             }
             fis.close();
         }catch(FileNotFoundException ignored){}
+    }
+    public String addCountry(String[] data){
+        try{
+            if(!validateMedalType(data[1])){return "\n ERROR : INVALID MEDAL TYPE";}
+            Country country = searchCountry(data[0]);
+            addMedal(country,data[1],Integer.parseInt(data[2]));
+            return "\n Country added Succesfully";
+        }catch(NumberFormatException ex){
+            return "\n ERROR : INVALID MEDAL AMOUNT";
+        }catch(IndexOutOfBoundsException ex){
+            return "\n ERROR : NOT ENOUGH INPUT VALUES";
+        }
+
+    }
+    private void addMedal(Country country,String medal,int amount){
+        switch(medal.toUpperCase()){
+            case "GOLD":
+                country.addGold(amount);
+                break;
+            case "SILVER":
+                country.addSilver(amount);
+                break;
+            case "BRONZE":
+                country.addBronze(amount);
+                break;
+        }
+    }
+    private boolean validateMedalType(String medal){
+        medal = medal.toUpperCase();
+        if(medal.equals("GOLD")||medal.equals("SILVER")||medal.equals("BRONZE")){
+            return true;
+        }else{
+            return false;
+        }
+    }
+    private Country searchCountry(String name){
+        for(int i=0;i<countries.size();i++){
+            if(countries.get(i).getName().equals(name)){
+                return countries.get(i);
+            }
+        }
+        Country c = new Country(name);
+        countries.add(c);
+        return c;
+    }
+    public String printList(){
+        StringBuilder msj = new StringBuilder();
+        for(Country c:countries){
+            msj.append("\n"+c.getName()+" : "+c.getGold());
+        }
+        return msj.toString();
     }
 }
