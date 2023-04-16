@@ -4,6 +4,7 @@ import com.google.gson.Gson;
 
 import java.io.*;
 import java.util.ArrayList;
+import java.util.Collections;
 
 public class Controller {
     ArrayList<Country> countries;
@@ -70,7 +71,7 @@ public class Controller {
     }
     private Country searchCountry(String name){
         for(int i=0;i<countries.size();i++){
-            if(countries.get(i).getName().equals(name)){
+            if(countries.get(i).getName().equalsIgnoreCase(name)){
                 return countries.get(i);
             }
         }
@@ -91,6 +92,27 @@ public class Controller {
             }
         }
         return printArray(list);
+    }
+    public String showMedals(){
+        StringBuilder msj = new StringBuilder();
+        Collections.sort(countries);
+        msj.append("\n Country | GOLD | SILVER | BRONZE");
+        for(Country c:countries){
+            msj.append("\n"+c.getName()+" : "+c.getGold()+" : "+c.getSilver()+" : "+c.getBronze());
+        }
+        return msj.toString();
+    }
+    public String showTotalMedals(){
+        StringBuilder msj = new StringBuilder();
+        msj.append("\n Country | TOTAL");
+        Collections.sort(countries, (a,b) ->{
+            int criteria = a.getTotal() - b.getTotal();
+            return (a.getTotal() - b.getTotal())*-1;
+        });
+        for(Country c:countries){
+            msj.append("\n"+c.getName()+" : "+c.getTotal());
+        }
+        return msj.toString();
     }
     private Country[] toArray(){
         Country[] list = new Country[countries.size()];

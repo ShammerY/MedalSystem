@@ -1,7 +1,6 @@
 import model.*;
 
 import java.io.IOException;
-import java.util.InputMismatchException;
 import java.util.Scanner;
 public class Main {
     private Scanner reader;
@@ -27,12 +26,13 @@ public class Main {
                 controller.saveData();
                 break;
             case "2":
+                print(controller.showMedals());
+                break;
+            case "3":
+                print(controller.showTotalMedals());
                 break;
             case "4":
                 print(controller.showCountries());
-                break;
-            case "5":
-                print(controller.printList());
                 break;
             case "0":
                 System.exit(0);
@@ -53,7 +53,6 @@ public class Main {
                 "(2) Show Medals  \n"+
                 "(3) Show Total Medals\n"+
                 "(4) Show Countries\n"+
-                "(5) print list\n"+
                 "(0) Exit Program";
     }
 }
