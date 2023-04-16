@@ -25,18 +25,21 @@ public class Main {
             case "1":
                 print(registerCountry());
                 controller.saveData();
-                executeProgram();
+                break;
             case "2":
-                executeProgram();
+                break;
+            case "4":
+                print(controller.showCountries());
+                break;
             case "5":
                 print(controller.printList());
-                executeProgram();
+                break;
             case "0":
                 System.exit(0);
             default:
                 print("\n Invalid Option");
-                executeProgram();
         }
+        executeProgram();
     }
     private String registerCountry(){
         print("\n Enter : country::medal::amount\n Format Example : Australia::gold::3\n");

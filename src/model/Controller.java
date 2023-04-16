@@ -46,7 +46,6 @@ public class Controller {
         }catch(IndexOutOfBoundsException ex){
             return "\n ERROR : NOT ENOUGH INPUT VALUES";
         }
-
     }
     private void addMedal(Country country,String medal,int amount){
         switch(medal.toUpperCase()){
@@ -78,6 +77,35 @@ public class Controller {
         Country c = new Country(name);
         countries.add(c);
         return c;
+    }
+    public String showCountries(){
+        Country temp = null;
+        Country[] list = toArray();
+        for(int i=0;i<list.length;i++){
+            for(int j=1;j<list.length-i;j++){
+                if((list[j].getName().compareTo(list[j-1].getName()))<0){
+                    temp = list[j];
+                    list[j] = list[j-1];
+                    list[j-1] = temp;
+                }
+            }
+        }
+        return printArray(list);
+    }
+    private Country[] toArray(){
+        Country[] list = new Country[countries.size()];
+        for(int i=0;i<list.length;i++){
+            list[i] = countries.get(i);
+        }
+        return list;
+    }
+    private String printArray(Country[] array){
+        StringBuilder msj = new StringBuilder();
+        msj.append("\n Country | GOLD | SILVER | BRONZE");
+        for(Country c:array){
+            msj.append("\n"+c.getName()+" : "+c.getGold()+" : "+c.getSilver()+" : "+c.getBronze());
+        }
+        return msj.toString();
     }
     public String printList(){
         StringBuilder msj = new StringBuilder();
